@@ -26,7 +26,6 @@ import android.os.SystemClock;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationCompat.BigPictureStyle;
 import com.google.android.gms.common.util.PlatformVersion;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.messaging.Constants.MessageNotificationKeys;
@@ -137,14 +136,7 @@ class DisplayNotification {
       Bitmap bitmap =
           Tasks.await(imageDownload.getTask(), IMAGE_DOWNLOAD_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 
-      /*
-       * Set large icon for non-expanded mode (shows up on the right), and the big picture for
-       * expanded mode. Clear the large icon in expanded mode as having the small image on the right
-       * and the large expanded image doesn't look great. This is what the Android screenshot
-       * notification does as well.
-       */
       n.setLargeIcon(bitmap);
-      n.setStyle(new BigPictureStyle().bigPicture(bitmap).bigLargeIcon((Bitmap) null));
 
     } catch (ExecutionException e) {
       // For all exceptions, fall through to show the notification without the image
